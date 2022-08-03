@@ -9,56 +9,56 @@ def hello_world():
     return 'Hello User!'
 
 
-@app.route('/emails/create/')
-def email_create():
-    email = request.args['email']
-    name = request.args['name']
+@app.route('/phones/create/')
+def phones_create():
+    phone = request.args['phone']
+    contact_name = request.args['contactName']
 
     sql_script = f'''
-            INSERT INTO users
-            VALUES ('{name}', '{email}');
+            INSERT INTO phones
+            VALUES ('{contact_name}', '{phone}');
             '''
 
     utils_db.sql_change(sql_script)
 
-    return 'Emails created'
+    return 'Phone created'
 
 
-@app.route('/emails/read/')
-def email_read():
+@app.route('/phones/read/')
+def phones_read():
     sql_script = f'''
-            SELECT * FROM users;
+            SELECT * FROM phones;
             '''
 
-    emails = utils_db.sql_read(sql_script)
-    return str(emails)
+    phones = utils_db.sql_read(sql_script)
+    return str(phones)
 
 
-@app.route('/emails/delete/')
+@app.route('/phones/delete/')
 def email_delete():
-    email = request.args['email']
+    phone = request.args['phone']
     sql_script = f'''
-            DELETE FROM users WHERE Email == '{email}';
+            DELETE FROM phones WHERE phone == '{phone}';
             '''
     utils_db.sql_change(sql_script)
 
-    return 'Email delete'
+    return 'Phone delete'
 
 
-@app.route('/emails/update/')
-def email_update():
-    email = request.args['email']
-    name = request.args['name']
+@app.route('/phones/update/')
+def phone_update():
+    phone = request.args['phone']
+    contact_name = request.args['contactName']
 
     sql_script = f'''
-            UPDATE users 
-            SET UserName = '{name}'
-            WHERE Email == '{email}';
+            UPDATE phones 
+            SET contactName = '{contact_name}'
+            WHERE phone == '{phone}';
             '''
 
     utils_db.sql_change(sql_script)
 
-    return 'Email update'
+    return 'Name update by phone number'
 
 
 if __name__ == '__main__':

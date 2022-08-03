@@ -1,9 +1,11 @@
 import sqlite3
 
+DATABASE_NAME = 'users.db'
+
 
 def sql_change(sql_script):
     try:
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DATABASE_NAME)
         cur = conn.cursor()
         cur.execute(sql_script)
         conn.commit()
@@ -13,7 +15,7 @@ def sql_change(sql_script):
 
 def sql_read(sql_script):
     try:
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DATABASE_NAME)
         cur = conn.cursor()
         cur.execute(sql_script)
         data_db = cur.fetchall()

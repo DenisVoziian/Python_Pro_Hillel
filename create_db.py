@@ -1,13 +1,8 @@
-import sqlite3
+from utils import utils_db
 
-conn = sqlite3.connect('users.db')
+sql_create_db = '''
+    CREATE TABLE phones
+    (contactName varchar(255), phone varchar(128) UNIQUE)
+    '''
 
-cur = conn.cursor()
-
-cur.execute('''
-    CREATE TABLE users
-    (UserName varchar(255), Email varchar(128) UNIQUE)
-    ''')
-
-conn.commit()
-conn.close()
+utils_db.sql_change(sql_create_db)
