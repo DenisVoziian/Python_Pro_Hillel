@@ -1,6 +1,9 @@
 import sqlite3
 
 DATABASE_NAME = 'users.db'
+TABLE_NAME = 'phones'
+CONTACT_NAME_COLUMN = "contactName"
+PHONE_COLUMN = "phone"
 
 
 def sql_change(sql_script):

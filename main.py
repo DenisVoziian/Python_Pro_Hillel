@@ -1,11 +1,11 @@
 from flask import Flask, request
-from utils import utils_db
+from utils.utils_db import *
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def hello_page():
     return 'Hello User!'
 
 
@@ -13,13 +13,12 @@ def hello_world():
 def phones_create():
     phone = request.args['phone']
     contact_name = request.args['contactName']
-
     sql_script = f'''
-            INSERT INTO phones
+            INSERT INTO {TABLE_NAME}
             VALUES ('{contact_name}', '{phone}');
             '''
 
-    utils_db.sql_change(sql_script)
+    sql_change(sql_script)
 
     return 'Phone created'
 
@@ -27,38 +26,39 @@ def phones_create():
 @app.route('/phones/read/')
 def phones_read():
     sql_script = f'''
-            SELECT * FROM phones;
+            SELECT * FROM {TABLE_NAME};
             '''
 
-    phones = utils_db.sql_read(sql_script)
+    phones = sql_read(sql_script)
+
     return str(phones)
 
 
-@app.route('/phones/delete/')
-def email_delete():
-    phone = request.args['phone']
-    sql_script = f'''
-            DELETE FROM phones WHERE phone == '{phone}';
-            '''
-    utils_db.sql_change(sql_script)
-
-    return 'Phone delete'
-
-
 @app.route('/phones/update/')
-def phone_update():
+def phones_update():
     phone = request.args['phone']
     contact_name = request.args['contactName']
-
     sql_script = f'''
-            UPDATE phones 
-            SET contactName = '{contact_name}'
-            WHERE phone == '{phone}';
+            UPDATE {TABLE_NAME} 
+            SET {CONTACT_NAME_COLUMN} = '{contact_name}'
+            WHERE {PHONE_COLUMN} == '{phone}';
             '''
 
-    utils_db.sql_change(sql_script)
+    sql_change(sql_script)
 
     return 'Name update by phone number'
+
+
+@app.route('/phones/delete/')
+def phones_delete():
+    phone = request.args['phone']
+    sql_script = f'''
+            DELETE FROM {TABLE_NAME} WHERE {PHONE_COLUMN} == '{phone}';
+            '''
+
+    sql_change(sql_script)
+
+    return 'Phone delete'
 
 
 if __name__ == '__main__':

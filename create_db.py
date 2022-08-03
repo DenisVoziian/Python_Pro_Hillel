@@ -1,8 +1,8 @@
-from utils import utils_db
+from utils.utils_db import *
 
-sql_create_db = '''
-    CREATE TABLE phones
-    (contactName varchar(255), phone varchar(128) UNIQUE)
+sql_create_db = f'''
+    CREATE TABLE {TABLE_NAME}
+    ({CONTACT_NAME_COLUMN} varchar(255), {PHONE_COLUMN} varchar(128) UNIQUE)
     '''
 
-utils_db.sql_change(sql_create_db)
+sql_change(sql_create_db)
