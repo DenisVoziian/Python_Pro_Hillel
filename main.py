@@ -10,9 +10,9 @@ def hello_page():
 
 
 @app.route('/phones/create/')
-def phones_create():
-    phone = request.args['phone']
-    contact_name = request.args['contactName']
+def phones_create() -> str:
+    phone: str = request.args['phone']
+    contact_name: str = request.args['contactName']
     sql_script = f'''
             INSERT INTO {TABLE_NAME}
             VALUES ('{contact_name}', '{phone}');
@@ -24,21 +24,21 @@ def phones_create():
 
 
 @app.route('/phones/read/')
-def phones_read():
-    sql_script = f'''
+def phones_read() -> str:
+    sql_script: str = f'''
             SELECT * FROM {TABLE_NAME};
             '''
 
-    phones = sql_read(sql_script)
+    phones: list = sql_read(sql_script)
 
     return str(phones)
 
 
 @app.route('/phones/update/')
-def phones_update():
-    phone = request.args['phone']
-    contact_name = request.args['contactName']
-    sql_script = f'''
+def phones_update() -> str:
+    phone: str = request.args['phone']
+    contact_name: str = request.args['contactName']
+    sql_script: str = f'''
             UPDATE {TABLE_NAME} 
             SET {CONTACT_NAME_COLUMN} = '{contact_name}'
             WHERE {PHONE_COLUMN} == '{phone}';
@@ -50,9 +50,9 @@ def phones_update():
 
 
 @app.route('/phones/delete/')
-def phones_delete():
-    phone = request.args['phone']
-    sql_script = f'''
+def phones_delete() -> str:
+    phone: str = request.args['phone']
+    sql_script: str = f'''
             DELETE FROM {TABLE_NAME} WHERE {PHONE_COLUMN} == '{phone}';
             '''
 
