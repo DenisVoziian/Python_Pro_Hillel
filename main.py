@@ -20,7 +20,7 @@ def phones_create() -> str:
 
     sql_change(sql_script)
 
-    return 'Phone created'
+    return 'New phone created'
 
 
 @app.route('/phones/read/')
